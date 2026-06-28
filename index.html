@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persi.AI — Custom Automation &amp; AI Tools</title>
+    <meta name="description"
+        content="Persi.AI builds custom automation and AI tools: content and social automation, ComfyUI image/video and 3D generation, desktop apps and reports. One-time build. You own the code. No subscriptions.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --paper: #f3efe6;
+            --paper-2: #ece6d9;
+            --paper-3: #e4ddcc;
+            --ink: #1a1714;
+            --ink-2: #57514691;
+            --ink-2-solid: #5b5547;
+            --ink-3: #8a8276;
+            --line: #d7cfbe;
+            --line-strong: #c4bba6;
+            --accent: #d6451f;
+            --accent-deep: #b1340f;
+
+            --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+            --sans: 'Inter', -apple-system, 'Segoe UI', system-ui, sans-serif;
+            --mono: 'JetBrains Mono', 'SF Mono', 'Courier New', monospace;
+
+            --container: 1180px;
+            --pad: clamp(20px, 5vw, 64px);
+            --section-y: clamp(72px, 11vw, 148px);
+            --radius: 4px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            background: var(--paper);
+            color: var(--ink);
+            font-family: var(--sans);
+            font-size: 17px;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            font-feature-settings: "ss01", "cv05";
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--paper);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ---------- shared layout ---------- */
+        .container {
+            width: 100%;
+            max-width: var(--container);
+            margin: 0 auto;
+            padding-inline: var(--pad);
+        }
+
+        .section {
+            padding-block: var(--section-y);
+            position: relative;
+        }
+
+        .rule {
+            border: 0;
+            border-top: 1px solid var(--line);
+        }
+
+        .eyebrow {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6em;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 22px;
+            height: 1px;
+            background: var(--accent);
+            display: inline-block;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--serif);
+            font-weight: 500;
+            line-height: 1.04;
+            letter-spacing: -0.015em;
+            font-optical-sizing: auto;
+        }
+
+        .display {
+            font-size: clamp(2.6rem, 7.2vw, 5.6rem);
+            letter-spacing: -0.03em;
+        }
+
+        .display em,
+        .h-em {
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .accent {
+            color: var(--accent);
+        }
+
+        .section-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: clamp(40px, 6vw, 72px);
+        }
+
+        .section-head h2 {
+            font-size: clamp(1.9rem, 4.4vw, 3.2rem);
+            letter-spacing: -0.02em;
+            max-width: 16ch;
+        }
+
+        .section-index {
+            font-family: var(--mono);
+            font-size: 0.74rem;
+            letter-spacing: 0.16em;
+            color: var(--ink-3);
+            text-transform: uppercase;
+        }
+
+        /* ---------- nav ---------- */
+        #nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            background: color-mix(in srgb, var(--paper) 82%, transparent);
+            backdrop-filter: saturate(140%) blur(14px);
+            -webkit-backdrop-filter: saturate(140%) blur(14px);
+            border-bottom: 1px solid transparent;
+            transition: border-color .3s, background .3s;
+        }
+
+        #nav.scrolled {
+            border-bottom-color: var(--line);
+        }
+
+        .nav-inner {
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 16px var(--pad);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .wordmark {
+            font-family: var(--serif);
+            font-size: 1.18rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .wordmark .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent);
+            animation: pulse 2.6s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent);
+            }
+
+            70% {
+                box-shadow: 0 0 0 7px transparent;
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 transparent;
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            list-style: none;
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+        }
+
+        .nav-links a {
+            color: var(--ink-2-solid);
+            position: relative;
+            padding-block: 4px;
+            transition: color .2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink);
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .28s ease;
+        }
+
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .nav-cta {
+            color: var(--paper) !important;
+            background: var(--ink);
+            padding: 9px 18px !important;
+            border-radius: var(--radius);
+            transition: background .2s, transform .2s;
+        }
+
+        .nav-cta::after {
+            display: none;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .nav-mobile-links {
+            display: none;
+        }
+
+        /* ---------- hero ---------- */
+        #hero {
+            padding-top: clamp(130px, 18vh, 210px);
+            padding-bottom: var(--section-y);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 0;
+        }
+
+        .hero h1 {
+            margin: 26px 0 0;
+            max-width: 14ch;
+        }
+
+        .hero-sub {
+            margin-top: 30px;
+            max-width: 46ch;
+            font-size: clamp(1.05rem, 1.6vw, 1.22rem);
+            color: var(--ink-2-solid);
+            line-height: 1.6;
+        }
+
+        .hero-cta-group {
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            letter-spacing: 0.04em;
+            padding: 14px 24px;
+            border-radius: var(--radius);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform .2s, background .2s, color .2s, border-color .2s;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--ink);
+            color: var(--paper);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            border-color: var(--line-strong);
+            color: var(--ink);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--ink);
+            transform: translateY(-2px);
+        }
+
+        .btn .arw {
+            transition: transform .2s;
+        }
+
+        .btn:hover .arw {
+            transform: translate(3px, -3px);
+        }
+
+        .hero-meta {
+            margin-top: 56px;
+            padding-top: 26px;
+            border-top: 1px solid var(--line);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 14px;
+        }
+
+        .chip {
+            font-family: var(--mono);
+            font-size: 0.74rem;
+            letter-spacing: 0.04em;
+            color: var(--ink-2-solid);
+            border: 1px solid var(--line-strong);
+            padding: 7px 13px;
+            border-radius: 100px;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: color-mix(in srgb, var(--paper-2) 60%, transparent);
+        }
+
+        .chip .x {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* ---------- about ---------- */
+        #about {
+            background: var(--paper-2);
+            border-block: 1px solid var(--line);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: clamp(40px, 6vw, 90px);
+            align-items: start;
+        }
+
+        .about-lead {
+            font-family: var(--serif);
+            font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+            line-height: 1.28;
+            letter-spacing: -0.015em;
+            color: var(--ink);
+        }
+
+        .about-body p {
+            color: var(--ink-2-solid);
+            margin-top: 22px;
+            max-width: 50ch;
+        }
+
+        .principles {
+            list-style: none;
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            line-height: 1.5;
+        }
+
+        .principles li {
+            padding: 16px 0;
+            border-top: 1px solid var(--line);
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            color: var(--ink-2-solid);
+        }
+
+        .principles li:last-child {
+            border-bottom: 1px solid var(--line);
+        }
+
+        .principles .no {
+            color: var(--accent);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .principles b {
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        .stats {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .stat .num {
+            font-family: var(--serif);
+            font-size: clamp(2.1rem, 4vw, 2.9rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+
+        .stat .lab {
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--ink-3);
+            margin-top: 10px;
+        }
+
+        /* ---------- services ---------- */
+        .svc {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: clamp(20px, 4vw, 56px);
+            align-items: start;
+            padding: clamp(28px, 4vw, 44px) 0;
+            border-top: 1px solid var(--line);
+            transition: padding-left .35s ease;
+        }
+
+        .svc:last-of-type {
+            border-bottom: 1px solid var(--line);
+        }
+
+        .svc:hover {
+            padding-left: 10px;
+        }
+
+        .svc-no {
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            padding-top: 8px;
+        }
+
+        .svc-main h3 {
+            font-size: clamp(1.4rem, 2.6vw, 2rem);
+        }
+
+        .svc-main .dom {
+            font-family: var(--mono);
+            font-size: 0.74rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-3);
+            margin: 12px 0 16px;
+        }
+
+        .svc-main p {
+            color: var(--ink-2-solid);
+            max-width: 56ch;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .tag {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.03em;
+            color: var(--ink-2-solid);
+            background: var(--paper-2);
+            border: 1px solid var(--line);
+            padding: 5px 11px;
+            border-radius: 3px;
+        }
+
+        .svc-aside {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-3);
+            text-align: right;
+            padding-top: 8px;
+            white-space: nowrap;
+        }
+
+        .svc-note {
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            line-height: 1.7;
+            color: var(--ink-2-solid);
+            margin-top: 40px;
+            padding: 22px 24px;
+            border: 1px solid var(--line);
+            border-left: 2px solid var(--accent);
+            border-radius: var(--radius);
+            background: var(--paper-2);
+            max-width: 74ch;
+        }
+
+        .svc-note b {
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        /* ---------- systems / work ---------- */
+        #systems {
+            background: var(--ink);
+            color: var(--paper);
+        }
+
+        #systems .section-head h2,
+        #systems .about-lead {
+            color: var(--paper);
+        }
+
+        #systems .section-index {
+            color: #8b8479;
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: #2c2823;
+            border: 1px solid #2c2823;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .work {
+            background: var(--ink);
+            padding: clamp(28px, 3.4vw, 44px);
+            display: flex;
+            flex-direction: column;
+            min-height: 280px;
+            transition: background .3s;
+            position: relative;
+        }
+
+        .work:hover {
+            background: #221e1a;
+        }
+
+        .work-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 26px;
+        }
+
+        .badge {
+            font-family: var(--mono);
+            font-size: 0.64rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            padding: 5px 9px;
+            border-radius: 100px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge.live {
+            color: #cdeccd;
+            background: #1c2b1c;
+            border: 1px solid #2f4a2f;
+        }
+
+        .badge.live .led {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #5fcf6a;
+            box-shadow: 0 0 8px #5fcf6a;
+        }
+
+        .badge.open {
+            color: #f0c9bb;
+            background: #2e1a13;
+            border: 1px solid #5a3122;
+        }
+
+        .work-cat {
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #8b8479;
+        }
+
+        .work-no {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: #6f6962;
+            position: absolute;
+            top: clamp(28px, 3.4vw, 44px);
+            right: clamp(28px, 3.4vw, 44px);
+        }
+
+        .work h4 {
+            font-size: clamp(1.35rem, 2.2vw, 1.7rem);
+            color: var(--paper);
+            margin-bottom: 14px;
+            max-width: 18ch;
+        }
+
+        .work p {
+            color: #b3ada2;
+            font-size: 0.96rem;
+            line-height: 1.6;
+        }
+
+        .work-spec {
+            margin-top: auto;
+            padding-top: 22px;
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.03em;
+            color: #8b8479;
+            border-top: 1px solid #2c2823;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 0;
+            margin-top: 26px;
+        }
+
+        .work-spec span {
+            color: #c9c2b6;
+        }
+
+        .work-plan {
+            margin-top: 16px;
+            font-family: var(--mono);
+            font-size: 0.66rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .work-plan::before {
+            content: "+";
+            font-weight: 700;
+        }
+
+        .work.invite {
+            background: linear-gradient(135deg, #241a14, var(--ink));
+        }
+
+        .work.invite:hover {
+            background: linear-gradient(135deg, #2c1d14, #1d1813);
+        }
+
+        .work.invite h4 {
+            color: var(--accent);
+        }
+
+        .work .invite-link {
+            margin-top: 26px;
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            color: var(--accent);
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .work.invite:hover .invite-link .arw {
+            transform: translate(3px, -3px);
+        }
+
+        .invite-link .arw {
+            transition: transform .2s;
+        }
+
+        /* ---------- contact ---------- */
+        #contact {
+            text-align: center;
+        }
+
+        .contact-inner {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        #contact h2 {
+            font-size: clamp(2.2rem, 6vw, 4.4rem);
+            letter-spacing: -0.03em;
+            margin: 22px 0 0;
+        }
+
+        #contact .lead {
+            color: var(--ink-2-solid);
+            max-width: 50ch;
+            margin: 26px auto 0;
+        }
+
+        .email-link {
+            display: inline-block;
+            margin-top: 40px;
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            letter-spacing: -0.02em;
+            border-bottom: 2px solid var(--line-strong);
+            padding-bottom: 6px;
+            transition: color .25s, border-color .25s;
+        }
+
+        .email-link:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .socials {
+            margin-top: 48px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .social {
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+            padding: 11px 18px;
+            border: 1px solid var(--line-strong);
+            border-radius: var(--radius);
+            color: var(--ink);
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            transition: border-color .2s, transform .2s, background .2s;
+        }
+
+        .social:hover {
+            border-color: var(--ink);
+            transform: translateY(-2px);
+        }
+
+        .social[aria-disabled="true"] {
+            color: var(--ink-3);
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .social-static {
+            cursor: default;
+        }
+
+        .social-static .handle {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .social .soon {
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-3);
+        }
+
+        .loc {
+            margin-top: 36px;
+            font-family: var(--mono);
+            font-size: 0.74rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-3);
+        }
+
+        .legal-links {
+            margin-top: 28px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .legal-links a {
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            letter-spacing: 0.04em;
+            color: var(--ink);
+            padding: 11px 18px;
+            border: 1px solid var(--line-strong);
+            border-radius: var(--radius);
+            background: var(--paper);
+            transition: color .2s, border-color .2s, background .2s, transform .2s;
+        }
+
+        .legal-links a:hover {
+            color: var(--paper);
+            background: var(--ink);
+            border-color: var(--ink);
+            transform: translateY(-2px);
+        }
+
+        .legal-links .legal-sep {
+            display: none;
+        }
+
+        /* ---------- footer ---------- */
+        footer {
+            border-top: 1px solid var(--line);
+            background: var(--paper-2);
+        }
+
+        .foot-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            flex-wrap: wrap;
+            padding-block: 34px;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.04em;
+            color: var(--ink-3);
+        }
+
+        .foot-inner .disc {
+            max-width: 52ch;
+        }
+
+        .foot-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .foot-links a {
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            letter-spacing: 0.03em;
+            color: var(--ink);
+            text-decoration: none;
+            padding: 9px 16px;
+            border: 1px solid var(--line-strong);
+            border-radius: var(--radius);
+            background: var(--paper);
+            transition: color .2s, border-color .2s, background .2s, transform .2s;
+        }
+
+        .foot-links a:hover {
+            color: var(--paper);
+            background: var(--ink);
+            border-color: var(--ink);
+            transform: translateY(-1px);
+        }
+
+        /* ---------- reveal ---------- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity .7s cubic-bezier(.2, .7, .2, 1), transform .7s cubic-bezier(.2, .7, .2, 1);
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* ---------- responsive ---------- */
+        @media (max-width: 860px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .work-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .svc {
+                grid-template-columns: auto 1fr;
+            }
+
+            .svc-aside {
+                display: none;
+            }
+
+            .nav-links li:not(.nav-cta-li) {
+                display: none;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .stats {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .stat {
+                padding: 16px 0;
+                border-top: 1px solid var(--line);
+                display: flex;
+                align-items: baseline;
+                gap: 16px;
+            }
+
+            .stat .lab {
+                margin-top: 0;
+            }
+
+            .hero-cta-group .btn {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @media print {
+
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .reveal {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+
+            #nav {
+                position: static;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav id="nav">
+        <div class="nav-inner">
+            <a href="#hero" class="wordmark"><span class="dot"></span>Persi.AI</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#systems">Systems</a></li>
+                <li class="nav-cta-li"><a href="#contact" class="nav-cta">Start a project</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header id="hero" class="section">
+        <div class="container hero">
+            <span class="eyebrow">Freelance Automation &amp; AI Tools · Timișoara, RO</span>
+            <h1 class="display">I build systems that do the <em class="accent">boring stuff</em> — so you don't have
+                to.</h1>
+            <p class="hero-sub">Custom Python systems that automate the repetitive work — content generation and posting,
+                image and video pipelines, 3D and design assets, reports and data. A one-time build that runs on your
+                machine — you own the code.</p>
+            <div class="hero-cta-group">
+                <a href="#systems" class="btn btn-primary">See the systems <span class="arw">↗</span></a>
+                <a href="#contact" class="btn btn-ghost">Start a project</a>
+            </div>
+            <div class="hero-meta">
+                <span class="chip">✓ Pay once to own it</span>
+                <span class="chip">✓ Runs on your machine</span>
+                <span class="chip"><span class="x">×</span> No cloud lock-in</span>
+                <span class="chip">Care plan optional</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-body reveal">
+                    <span class="section-index">01 — About</span>
+                    <p class="about-lead" style="margin-top:20px;">I write Python that replaces busywork. No hype, no
+                        fluff — just the repetitive work, automated and handed over.</p>
+                    <p>I build custom automation and AI tooling for creators, small businesses, and indie projects:
+                        systems that generate and post content, produce images and video, build 3D and design assets, and
+                        move data between tools — so the repetitive work runs itself.</p>
+                    <p>Everything runs locally on your machine. You pay once and own the system outright — full source
+                        handed over, no cloud lock-in. For systems that run against live platforms I offer an optional
+                        monthly care plan to keep them maintained, but it's never forced — the build is yours either
+                        way.</p>
+                    <div class="stats">
+                        <div class="stat">
+                            <div class="num">12+</div>
+                            <div class="lab">Systems deployed</div>
+                        </div>
+                        <div class="stat">
+                            <div class="num">3+</div>
+                            <div class="lab">Years building</div>
+                        </div>
+                        <div class="stat">
+                            <div class="num">100%</div>
+                            <div class="lab">Client-owned</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <ul class="principles">
+                        <li><span class="no">01</span><span><b>Pay once to own it.</b> The build is a one-time fee and
+                                the source is yours. Ongoing care plans are optional, never required.</span></li>
+                        <li><span class="no">02</span><span><b>You own the code.</b> Full source handed over. Modify it,
+                                move it, keep it forever.</span></li>
+                        <li><span class="no">03</span><span><b>Runs on your machine.</b> No cloud lock-in, no third-party
+                                dependency you can't control.</span></li>
+                        <li><span class="no">04</span><span><b>Built to spec.</b> You describe the workflow; I automate
+                                exactly that — no bloat, no recurring costs.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="section">
+        <div class="container">
+            <div class="section-head reveal">
+                <h2>What I build</h2>
+                <span class="section-index">02 — Services</span>
+            </div>
+
+            <div class="svc reveal">
+                <div class="svc-no">01</div>
+                <div class="svc-main">
+                    <h3>Content &amp; social automation</h3>
+                    <div class="dom">Generation · scheduling · posting</div>
+                    <p>Systems that build content, schedule it, and publish it on autopilot — packaged as a standalone
+                        .exe that runs unattended on your machine. Instagram, Telegram, Discord, and more.</p>
+                    <div class="tags">
+                        <span class="tag">Auto-posting</span>
+                        <span class="tag">Scheduling</span>
+                        <span class="tag">.exe packaging</span>
+                        <span class="tag">Multi-platform</span>
+                    </div>
+                </div>
+                <div class="svc-aside">Python · APIs</div>
+            </div>
+
+            <div class="svc reveal">
+                <div class="svc-no">02</div>
+                <div class="svc-main">
+                    <h3>Creative &amp; 3D generation</h3>
+                    <div class="dom">Images · video · 3D</div>
+                    <p>Local AI generation pipelines built on ComfyUI — batch images, video, and image-to-3D models for
+                        design and 3D printing. Runs free on your own GPU, with no per-image cloud fees.</p>
+                    <div class="tags">
+                        <span class="tag">ComfyUI</span>
+                        <span class="tag">Batch rendering</span>
+                        <span class="tag">Image-to-3D</span>
+                        <span class="tag">3D-print ready</span>
+                    </div>
+                </div>
+                <div class="svc-aside">Python · ComfyUI</div>
+            </div>
+
+            <div class="svc reveal">
+                <div class="svc-no">03</div>
+                <div class="svc-main">
+                    <h3>Custom tools &amp; reporting</h3>
+                    <div class="dom">Apps · reports · pipelines</div>
+                    <p>Desktop tools, automated PDF and report generation, data pipelines, and integrations — packaged as
+                        a clean .exe. If it touches Python, APIs, data, or files, it can probably be built.</p>
+                    <div class="tags">
+                        <span class="tag">Desktop .exe</span>
+                        <span class="tag">PDF reports</span>
+                        <span class="tag">Data pipelines</span>
+                        <span class="tag">Integrations</span>
+                    </div>
+                </div>
+                <div class="svc-aside">Python · tooling</div>
+            </div>
+
+            <p class="svc-note"><b>How pricing works —</b> every system is a one-time build you own outright, source
+                included. Systems that run against live platforms — social posting, scraping, data feeds — can add an
+                optional monthly care plan for monitoring, breakage fixes, and platform updates. Always optional, cancel
+                anytime.</p>
+        </div>
+    </section>
+
+    <!-- SYSTEMS -->
+    <section id="systems" class="section">
+        <div class="container">
+            <div class="section-head reveal">
+                <h2>Systems I've shipped</h2>
+                <span class="section-index">03 — Selected work</span>
+            </div>
+            <div class="work-grid">
+                <article class="work reveal">
+                    <span class="work-no">/01</span>
+                    <div class="work-top">
+                        <span class="badge live"><span class="led"></span>Live</span>
+                        <span class="work-cat">Content automation</span>
+                    </div>
+                    <h4>Fully Automated Instagram Page</h4>
+                    <p>A hands-off Instagram engine shipped as a standalone Windows <b>.exe</b> — no Python install
+                        needed. It builds the posts, schedules them, and publishes on a set cadence completely
+                        unattended, keeping a running build log of every action. Set it once and the page runs itself.</p>
+                    <div class="work-spec"><span>.exe build</span>&nbsp;·&nbsp;<span>scheduled posting</span>&nbsp;·&nbsp;<span>zero-touch</span>&nbsp;·&nbsp;<span>build log</span>
+                    </div>
+                    <div class="work-plan">One-time build or managed monthly plan</div>
+                </article>
+
+                <article class="work reveal">
+                    <span class="work-no">/02</span>
+                    <div class="work-top">
+                        <span class="badge live"><span class="led"></span>Live</span>
+                        <span class="work-cat">Creative automation</span>
+                    </div>
+                    <h4>ComfyUI Generation Pipeline</h4>
+                    <p>A local AI image and video pipeline built on ComfyUI — batch-generates on-brand visuals on your
+                        own GPU, fully unattended. No per-image cloud costs and no subscriptions; the rendering runs on
+                        hardware you already own.</p>
+                    <div class="work-spec"><span>ComfyUI</span>&nbsp;·&nbsp;<span>batch render</span>&nbsp;·&nbsp;<span>local GPU</span>&nbsp;·&nbsp;<span>image + video</span>
+                    </div>
+                    <div class="work-plan">One-time build or managed monthly plan</div>
+                </article>
+
+                <article class="work reveal">
+                    <span class="work-no">/03</span>
+                    <div class="work-top">
+                        <span class="badge live"><span class="led"></span>Live</span>
+                        <span class="work-cat">Design automation</span>
+                    </div>
+                    <h4>3D Model &amp; Design Generator</h4>
+                    <p>An image-to-3D pipeline that turns prompts and references into print-ready 3D models and design
+                        assets — automating the slow path from idea to a manufacturable file, all on local hardware.</p>
+                    <div class="work-spec"><span>image-to-3D</span>&nbsp;·&nbsp;<span>print-ready</span>&nbsp;·&nbsp;<span>design assets</span>&nbsp;·&nbsp;<span>local</span>
+                    </div>
+                </article>
+
+                <article class="work invite reveal">
+                    <span class="work-no">/04</span>
+                    <div class="work-top">
+                        <span class="badge open">Available</span>
+                        <span class="work-cat">Custom build</span>
+                    </div>
+                    <h4>Your project here</h4>
+                    <p>Tell me what you need automated. If it involves Python, APIs, data, or Telegram, I can probably
+                        build it. One-time build, source handed over, no recurring costs.</p>
+                    <a href="#contact" class="invite-link">Start the conversation <span class="arw">↗</span></a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+        <div class="container contact-inner">
+            <span class="eyebrow" style="justify-content:center;">04 — Get in touch</span>
+            <h2>Let's automate the<br><span class="h-em accent">repetitive stuff.</span></h2>
+            <p class="lead">If you need a system that handles content, generation, posting, or reporting — I can
+                build it. Pay once to own the build, runs on your machine, with an optional care plan if you want me to
+                keep it running.</p>
+            <a href="mailto:diya.minamoto@gmail.com" class="email-link">diya.minamoto@gmail.com</a>
+            <div class="socials">
+                <a href="https://www.linkedin.com/in/diya-hussein-a08351409/" target="_blank" rel="noopener"
+                    class="social">LinkedIn</a>
+                <span class="social social-static">Discord <span class="handle">persistium</span></span>
+            </div>
+            <div class="loc">Based in Timișoara, Romania · Remote worldwide</div>
+            <div class="legal-links">
+                <a href="terms.html">Terms &amp; Conditions</a>
+                <span class="legal-sep">·</span>
+                <a href="privacy.html">Privacy Policy</a>
+                <span class="legal-sep">·</span>
+                <a href="refunds.html">Refund Policy</a>
+                <span class="legal-sep">·</span>
+                <a href="service-agreement.html">Service Agreement</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container foot-inner">
+            <span class="disc">© 2026 Persi.AI · Custom automation &amp; AI tooling · Timișoara, Romania</span>
+            <nav class="foot-links">
+                <a href="terms.html">Terms</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="refunds.html">Refunds</a>
+                <a href="service-agreement.html">Agreement</a>
+                <a href="mailto:diya.minamoto@gmail.com">Email</a>
+            </nav>
+        </div>
+    </footer>
+
+    <script>
+        // nav border on scroll
+        const nav = document.getElementById('nav');
+        const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 12);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        // scroll reveal
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+        document.querySelectorAll('.reveal').forEach((el, i) => {
+            el.style.transitionDelay = Math.min(i % 4 * 0.06, 0.18) + 's';
+            io.observe(el);
+        });
+    </script>
+</body>
+
+</html>

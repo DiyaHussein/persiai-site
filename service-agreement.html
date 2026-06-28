@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Service Agreement — Diya Hussein</title>
+    <meta name="description"
+        content="The standard client service agreement for custom automation and AI tooling projects by Diya Hussein, Timișoara, Romania.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --paper: #f3efe6;
+            --paper-2: #ece6d9;
+            --ink: #1a1714;
+            --ink-2: #5b5547;
+            --ink-3: #8a8276;
+            --line: #d7cfbe;
+            --line-strong: #c4bba6;
+            --accent: #d6451f;
+            --serif: 'Fraunces', Georgia, serif;
+            --sans: 'Inter', -apple-system, system-ui, sans-serif;
+            --mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--paper);
+            color: var(--ink);
+            font-family: var(--sans);
+            font-size: 16px;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--paper);
+        }
+
+        .wrap {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        header.top {
+            border-bottom: 1px solid var(--line);
+            position: sticky;
+            top: 0;
+            background: color-mix(in srgb, var(--paper) 86%, transparent);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 10;
+        }
+
+        .top .wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            max-width: 760px;
+        }
+
+        .wordmark {
+            font-family: var(--serif);
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: -0.02em;
+            display: flex;
+            gap: 9px;
+            align-items: center;
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .wordmark .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .back {
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            color: var(--ink-2);
+            text-decoration: none;
+        }
+
+        .back:hover {
+            color: var(--accent);
+        }
+
+        .doc {
+            padding: 60px 0 72px;
+        }
+
+        .eyebrow {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        h1 {
+            font-family: var(--serif);
+            font-weight: 500;
+            font-size: clamp(2.2rem, 6vw, 3.4rem);
+            letter-spacing: -0.025em;
+            line-height: 1.04;
+            margin: 16px 0 14px;
+        }
+
+        .updated {
+            font-family: var(--mono);
+            font-size: 0.74rem;
+            color: var(--ink-3);
+            margin-bottom: 18px;
+        }
+
+        .lede {
+            font-size: 1.06rem;
+            color: var(--ink-2);
+        }
+
+        h2 {
+            font-family: var(--serif);
+            font-weight: 500;
+            font-size: 1.4rem;
+            letter-spacing: -0.01em;
+            margin: 40px 0 12px;
+            padding-top: 28px;
+            border-top: 1px solid var(--line);
+            display: flex;
+            gap: 14px;
+        }
+
+        h2 .n {
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            color: var(--accent);
+            padding-top: 7px;
+        }
+
+        p {
+            margin: 12px 0;
+            color: var(--ink-2);
+        }
+
+        strong,
+        b {
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        ul {
+            margin: 12px 0;
+            padding-left: 22px;
+        }
+
+        li {
+            margin: 7px 0;
+            color: var(--ink-2);
+        }
+
+        a {
+            color: var(--accent);
+        }
+
+        .parties {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 22px 0 4px;
+        }
+
+        .party {
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            padding: 18px 20px;
+            background: var(--paper-2);
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            line-height: 1.8;
+            color: var(--ink-2);
+        }
+
+        .party .role {
+            font-size: 0.66rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .party b {
+            color: var(--ink);
+        }
+
+        .fill {
+            font-family: var(--mono);
+            background: var(--paper);
+            border-bottom: 1px solid var(--line-strong);
+            padding: 1px 8px;
+            color: var(--ink-3);
+            border-radius: 3px;
+        }
+
+        .callout {
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            line-height: 1.7;
+            background: var(--paper-2);
+            border: 1px solid var(--line);
+            border-left: 2px solid var(--accent);
+            border-radius: 4px;
+            padding: 16px 20px;
+            margin: 18px 0;
+            color: var(--ink-2);
+        }
+
+        .scope-box {
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            padding: 24px;
+            margin-top: 14px;
+            background: var(--paper-2);
+        }
+
+        .scope-box .row {
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            color: var(--ink-2);
+            margin: 14px 0;
+        }
+
+        .scope-box .opts {
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            color: var(--ink-2);
+            line-height: 2;
+        }
+
+        .sig {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            margin-top: 24px;
+        }
+
+        .sig .box {
+            border-top: 1px solid var(--ink);
+            padding-top: 10px;
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            color: var(--ink-3);
+        }
+
+        .sig .box b {
+            color: var(--ink);
+            display: block;
+            margin-bottom: 30px;
+        }
+
+        footer.foot {
+            border-top: 1px solid var(--line);
+            background: var(--paper-2);
+        }
+
+        .foot .wrap {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding: 28px 24px;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            color: var(--ink-3);
+            max-width: 760px;
+        }
+
+        .foot a {
+            color: var(--ink-2);
+            text-decoration: none;
+        }
+
+        .foot a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 560px) {
+
+            .parties,
+            .sig {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="top">
+        <div class="wrap">
+            <a href="index.html" class="wordmark"><span class="dot"></span>Diya Hussein</a>
+            <a href="index.html" class="back">← Back to site</a>
+        </div>
+    </header>
+
+    <main class="wrap doc">
+        <h1>Client Service Agreement</h1>
+        <p class="lede">This is the standard agreement I use for custom automation and AI tooling projects. The
+            project-specific details are filled in per client before signing.</p>
+
+        <div class="parties">
+            <div class="party">
+                <span class="role">Provider</span>
+                <b>Diya Hussein</b><br>
+                diya.minamoto@gmail.com<br>
+                Timișoara, Romania
+            </div>
+            <div class="party">
+                <span class="role">Client</span>
+                <span class="fill">Client name</span><br>
+                <span class="fill">Client email</span><br>
+                <span class="fill">Company (if any)</span>
+            </div>
+        </div>
+        <p style="font-family:var(--mono);font-size:0.82rem;color:var(--ink-3);">Effective date: <span
+                class="fill">date</span></p>
+
+        <h2><span class="n">01</span> Services</h2>
+        <p>The Provider will design, build and deliver a custom software system ("the System") according to the Project
+            Scope below. Work may include content and social automation; AI image and video generation; 3D and
+            design-asset generation; desktop tools and executables; and automated reports, data pipelines or
+            integrations. The exact deliverables and timeline are defined in the Project Scope.</p>
+
+        <h2><span class="n">02</span> What is not included</h2>
+        <p>The Provider does not provide financial, legal or tax advice, hold or move Client funds, guarantee specific
+            outcomes (such as followers, engagement or sales), or provide hosting or servers unless stated in the Project
+            Scope.</p>
+
+        <h2><span class="n">03</span> Delivery &amp; acceptance</h2>
+        <p>The Provider delivers the System per the Project Scope. The Client has 7 calendar days from delivery to test
+            and report defects; if none are reported, the System is considered accepted. Defects reported within that
+            window are fixed at no additional cost. Items not listed in the Project Scope require a separate agreement.</p>
+
+        <h2><span class="n">04</span> Payment</h2>
+        <p>Total project fee: <span class="fill">amount</span> EUR. Schedule: 50% before work begins, 50% on delivery and
+            acceptance. Fees are non-refundable after the acceptance period. Paid by bank transfer or card (for example
+            via Revolut); details on the invoice.</p>
+
+        <h2><span class="n">05</span> Care plan &amp; monthly retainer (optional)</h2>
+        <p>Ongoing work can be arranged on a recurring monthly basis — a care plan (monitoring, breakage fixes and
+            platform-change updates) and/or a monthly retainer for continued support, account management, new features
+            and additional automation work.</p>
+        <div class="callout">Monthly care plan / retainer: <span class="fill">amount</span> EUR / month — optional,
+            billed monthly in advance, cancellable at any time. Not required to own or run the System.</div>
+
+        <h2><span class="n">06</span> Client responsibilities</h2>
+        <p>The Client agrees to provide the access and credentials needed to build the System; give clear specifications
+            and respond to questions within about 48 hours; test the System during the acceptance period; comply with
+            the relevant third-party platform terms and keep their own accounts in good standing; and not resell or
+            redistribute the System without written permission.</p>
+
+        <h2><span class="n">07</span> Intellectual property</h2>
+        <p>On full payment, the Client owns the delivered System and its source code and may use and modify it
+            indefinitely. The Provider retains general reusable libraries and components created before or independently
+            of the project. The Provider may reference the project in a portfolio without disclosing confidential
+            details.</p>
+
+        <h2><span class="n">08</span> Confidentiality</h2>
+        <p>Both parties keep shared proprietary information confidential. The Provider will not share the Client's data,
+            credentials or business information; the Client will not share the System's source code or implementation
+            details.</p>
+
+        <h2><span class="n">09</span> Limitation of liability</h2>
+        <p>The System is provided "as is", with no guarantee of specific outcomes or of uninterrupted operation. The
+            Provider is not liable for losses arising from third-party platform or service changes or actions (including
+            account suspensions), or from misuse or modification of the System. The Provider's total liability is limited
+            to the fees paid for the project.</p>
+
+        <h2><span class="n">10</span> Support &amp; maintenance</h2>
+        <p>The System is delivered as a one-time build, including a 30-day bug-fix period at no additional cost. Further
+            features, changes or support are billed separately or covered by a care plan (section 05).</p>
+
+        <h2><span class="n">11</span> Termination</h2>
+        <p>Either party may terminate this Agreement in writing. If terminated before delivery, completed work is
+            invoiced, any prepayment beyond that is refunded, and the Client's materials are returned.</p>
+
+        <h2><span class="n">12</span> Governing law</h2>
+        <p>This Agreement is governed by the laws of Romania. Disputes are resolved through good-faith negotiation before
+            any legal action.</p>
+
+        <h2><span class="n">13</span> Signatures</h2>
+        <div class="sig">
+            <div class="box">
+                <b>Provider</b>
+                Diya Hussein<br>
+                Date: <span class="fill">date</span>
+            </div>
+            <div class="box">
+                <b>Client</b>
+                <span class="fill">signature</span><br>
+                Date: <span class="fill">date</span>
+            </div>
+        </div>
+
+        <h2><span class="n">A</span> Attachment — Project Scope</h2>
+        <div class="scope-box">
+            <div class="row">Project name: <span class="fill">name</span></div>
+            <div class="row">Description: <span class="fill">what the system does</span></div>
+            <div class="row" style="margin-top:18px;">System / automation type:</div>
+            <div class="opts">
+                ☐ Content &amp; social posting &nbsp; ☐ AI image generation &nbsp; ☐ AI video generation<br>
+                ☐ 3D / design assets &nbsp; ☐ Desktop tool / .exe &nbsp; ☐ Reports / PDF<br>
+                ☐ Data pipeline / integration &nbsp; ☐ Other: <span class="fill">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            </div>
+            <div class="row" style="margin-top:18px;">Output channels:</div>
+            <div class="opts">
+                ☐ Instagram &nbsp; ☐ Telegram &nbsp; ☐ Discord &nbsp; ☐ Email<br>
+                ☐ Local files / desktop &nbsp; ☐ Other: <span class="fill">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            </div>
+            <div class="row" style="margin-top:18px;">Start date: <span class="fill">date</span> &nbsp;&nbsp; Estimated
+                delivery: <span class="fill">date</span></div>
+            <div class="row">Total project fee: <span class="fill">amount</span> EUR &nbsp;&nbsp; Care plan / retainer
+                (optional): <span class="fill">amount</span> EUR / month</div>
+        </div>
+    </main>
+
+    <footer class="foot">
+        <div class="wrap">
+            <span>© 2026 Diya Hussein · Timișoara, Romania</span>
+            <span><a href="index.html">Home</a> · <a href="terms.html">Terms &amp; Conditions</a></span>
+        </div>
+    </footer>
+</body>
+
+</html>
