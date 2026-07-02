@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+/* ── Persi AI — Brutalist/Editorial ── */
+
+:root {
+  --bg: #080c14;
+  --surface: #0d1220;
+  --border: #1a2035;
+  --text: #e6e8ed;
+  --text2: #6b7280;
+  --accent: #c9a961;
+  --accent-dim: rgba(201, 169, 97, 0.15);
+  --warn: #ef4444;
+  --success: #22c55e;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Underline accent utility ── */
+.accent-underline {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+}
+
+/* ── Section divider ── */
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+
+/* ── Clean up old glow cruft ── */
+@property --glow-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+@keyframes glow-angle-rotate { to { --glow-angle: 1turn; } }
+.glow-conic {
+  border-image: conic-gradient(from var(--glow-angle), var(--accent), var(--accent-dim), var(--accent)) 1;
+  animation: glow-angle-rotate 4s linear infinite;
+}
